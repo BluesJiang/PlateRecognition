@@ -1,0 +1,7 @@
+resources/image/
+.idea
+.DS_Store
+*.exe
+*.o
+build/
+cmake-build-debug
