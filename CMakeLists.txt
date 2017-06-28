@@ -22,7 +22,7 @@ add_subdirectory(thirdparty)
 
 set(SOURCE_FILES main.cpp)
 aux_source_directory(src SOURCE_DIR)
-add_executable(${PROJECT_NAME} ${SOURCE_DIR} src/dialogs/MainWindow.cpp src/dialogs/MainWindow.h)
+add_executable(${PROJECT_NAME} ${SOURCE_DIR} src/dialogs/MainWindow.cpp src/dialogs/MainWindow.h src/tools/PlateRecognisor.cpp src/tools/PlateRecognisor.h)
 target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/libeasypr.a)
 target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
 target_link_libraries(${PROJECT_NAME} thirdparty)
