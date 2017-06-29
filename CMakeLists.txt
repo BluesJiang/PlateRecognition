@@ -20,18 +20,13 @@ find_package(Qt5Gui REQUIRED)
 # sub directories
 add_subdirectory(thirdparty)
 
-set(SOURCE_FILES main.cpp)
-aux_source_directory(src SOURCE_DIR)
-
 aux_source_directory(src/tools SOURCE_DIR)
 aux_source_directory(src/dialogs SOURCE_DIR)
 aux_source_directory(src/ui SOURCE_DIR)
 aux_source_directory(src/widgets SOURCE_DIR)
+aux_source_directory(src/model SOURCE_DIR)
 
-add_executable(${PROJECT_NAME} ${SOURCE_DIR})
+add_executable(${PROJECT_NAME} ${SOURCE_DIR} src/main.cpp)
 target_link_libraries(${PROJECT_NAME} libeasypr.a libqiniu.dylib)
 
-target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
-target_link_libraries(${PROJECT_NAME} thirdparty)
-# Use the Widgets module from Qt 5.
-target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::Core)
+target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS} Qt5::Widgets Qt5::Core thirdparty)
