@@ -126,10 +126,27 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>recognize()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>616</x>
+     <y>67</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onActionExitClicked()</slot>
   <slot>itemClicked()</slot>
   <slot>import()</slot>
+  <slot>recognize()</slot>
  </slots>
 </ui>

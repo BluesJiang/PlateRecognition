@@ -5,6 +5,7 @@
 #include "MainWindow.h"
 #include <iostream>
 
+using namespace easypr;
 
 MainWindow::MainWindow(QWidget *parent) {
     ui = new Ui::MainWindow();
@@ -65,7 +66,7 @@ void MainWindow::import() {
         if(!qdir.exists())  return;
         qdir.setFilter(QDir::Files | QDir::NoSymLinks);
         qdir.setNameFilters(filters);
-        QFileInfoList fileInfoList = qdir.entryInfoList();
+        fileInfoList = qdir.entryInfoList();
         int fileCount = fileInfoList.size();
         for(int i = 0; i < fileCount; i++)
         {
@@ -88,6 +89,21 @@ void MainWindow::import() {
     }
 
     ui->pushButton_2->setEnabled(true);
+}
+
+void MainWindow::recognize()
+{
+    CPlate cplate;
+    PlateRecognisor recognisor;
+    for(int i = 0; i < fileInfoList.size(); i++)
+    {
+        QString plateResult = recognisor.recognizePlateInFile(fileInfoList[i].filePath());
+
+        //cout<<plateResult.toStdString()<<endl
+        standardItemModel->setItem(i, 1, new QStandardItem(plateResult));
+        ui->tableView->setModel(standardItemModel);
+    }
+
 }
 MainWindow::~MainWindow() {
     delete ui;

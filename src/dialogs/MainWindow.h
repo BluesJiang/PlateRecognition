@@ -13,13 +13,17 @@
 #include <QFileDialog>
 #include <QDir>
 #include <vector>
+#include <easypr.h>
 #include "../ui/ui_MainWindow.h"
+#include "src/tools/PlateRecognisor.h"
 using namespace std;
+
 class MainWindow: public QMainWindow {
     Q_OBJECT
     Ui::MainWindow* ui = NULL;
     QStandardItemModel * standardItemModel = NULL;
     vector<QImage *> images;
+    QFileInfoList fileInfoList;
 public:
     explicit MainWindow(QWidget* parent = 0);
     ~ MainWindow();
@@ -33,6 +37,7 @@ private slots:
     void onActionExitClicked();
     void itemClicked(QModelIndex index);
     void import();
+    void recognize();
 
 
 

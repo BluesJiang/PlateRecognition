@@ -75,8 +75,9 @@ public:
         menuFile->addAction(actionExit);
 
         retranslateUi(MainWindow);
-        QObject::connect(tableView, SIGNAL(entered(QModelIndex)), MainWindow, SLOT(itemClicked(QModelIndex)));
+        QObject::connect(tableView, SIGNAL(clicked(QModelIndex)), MainWindow, SLOT(itemClicked(QModelIndex)));
         QObject::connect(pushButton, SIGNAL(clicked()), MainWindow, SLOT(import()));
+        QObject::connect(pushButton_2, SIGNAL(clicked()), MainWindow, SLOT(recognize()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi

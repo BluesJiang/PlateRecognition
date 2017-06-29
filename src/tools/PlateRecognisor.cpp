@@ -49,3 +49,16 @@ void PlateRecognisor::recognizePlateInFile(QString path, CPlate& plate) {
     }
 
 }
+
+QString PlateRecognisor::recognizePlateInFile(QString path) {
+
+    std::vector<CPlate> plateVec;
+    cv::Mat img = cv::imread(path.toStdString().c_str());
+    int result = pr.plateRecognize(img, plateVec);
+    QString plateStr;
+    plateStr = QString::fromStdString(plateVec.at(0).getPlateStr());
+    if (result == 0 && plateVec.size() == 1) {
+       return plateStr;
+    }
+
+}
