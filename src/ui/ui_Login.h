@@ -48,14 +48,14 @@ public:
         lineEdit_2->setInputMethodHints(Qt::ImhHiddenText);
         label_2 = new QLabel(Dialog);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(80, 190, 60, 31));
+        label_2->setGeometry(QRect(100, 190, 41, 31));
         QFont font;
         font.setPointSize(14);
         label_2->setFont(font);
         label_2->setTextFormat(Qt::AutoText);
         label_3 = new QLabel(Dialog);
         label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(80, 240, 60, 31));
+        label_3->setGeometry(QRect(100, 240, 41, 31));
         label_3->setFont(font);
 #ifndef QT_NO_TOOLTIP
         label_3->setToolTip(0u);

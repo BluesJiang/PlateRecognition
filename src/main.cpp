@@ -1,6 +1,7 @@
 #include <iostream>
 #include <QApplication>
 #include "dialogs/MainWindow.h"
+#include "dialogs/Login.h"
 #include "qiniu/io.h"
 #include "qiniu/rs.h"
 #include "qiniu/base.h"
@@ -19,10 +20,10 @@ int main(int argc, char* argv[]) {
     Qiniu_Client_InitMacAuth(&client, 1024, &mac);
     Qiniu_Client_Cleanup(&client);
     Qiniu_Servend_Cleanup();
-
+    Dialog * login = new Dialog();
     MainWindow* mainWindow = new MainWindow();
 
-    mainWindow->show();
+    login->show();
 
     return app->exec();
 }
