@@ -17,18 +17,18 @@
    <widget class="QTableView" name="tableView">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>120</y>
-      <width>351</width>
-      <height>381</height>
+      <x>450</x>
+      <y>70</y>
+      <width>311</width>
+      <height>451</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>80</y>
+      <x>440</x>
+      <y>30</y>
       <width>113</width>
       <height>32</height>
      </rect>
@@ -41,7 +41,7 @@
     <property name="geometry">
      <rect>
       <x>560</x>
-      <y>80</y>
+      <y>30</y>
       <width>113</width>
       <height>32</height>
      </rect>
@@ -50,14 +50,17 @@
      <string>识别</string>
     </property>
    </widget>
-   <widget class="QGraphicsView" name="graphicsView">
+   <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>160</y>
-      <width>341</width>
-      <height>281</height>
+      <x>70</x>
+      <y>60</y>
+      <width>351</width>
+      <height>321</height>
      </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
     </property>
    </widget>
   </widget>
@@ -93,13 +96,29 @@
  <connections>
   <connection>
    <sender>tableView</sender>
-   <signal>clicked(QModelIndex)</signal>
+   <signal>entered(QModelIndex)</signal>
    <receiver>MainWindow</receiver>
    <slot>itemClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>405</x>
-     <y>272</y>
+     <x>605</x>
+     <y>317</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>import()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>496</x>
+     <y>67</y>
     </hint>
     <hint type="destinationlabel">
      <x>399</x>
@@ -111,5 +130,6 @@
  <slots>
   <slot>onActionExitClicked()</slot>
   <slot>itemClicked()</slot>
+  <slot>import()</slot>
  </slots>
 </ui>

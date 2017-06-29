@@ -13,8 +13,8 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
@@ -33,7 +33,7 @@ public:
     QTableView *tableView;
     QPushButton *pushButton;
     QPushButton *pushButton_2;
-    QGraphicsView *graphicsView;
+    QLabel *label;
     QMenuBar *menubar;
     QMenu *menuFile;
     QStatusBar *statusbar;
@@ -49,16 +49,16 @@ public:
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         tableView = new QTableView(centralwidget);
         tableView->setObjectName(QStringLiteral("tableView"));
-        tableView->setGeometry(QRect(420, 120, 351, 381));
+        tableView->setGeometry(QRect(450, 70, 311, 451));
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(420, 80, 113, 32));
+        pushButton->setGeometry(QRect(440, 30, 113, 32));
         pushButton_2 = new QPushButton(centralwidget);
         pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setGeometry(QRect(560, 80, 113, 32));
-        graphicsView = new QGraphicsView(centralwidget);
-        graphicsView->setObjectName(QStringLiteral("graphicsView"));
-        graphicsView->setGeometry(QRect(50, 160, 341, 281));
+        pushButton_2->setGeometry(QRect(560, 30, 113, 32));
+        label = new QLabel(centralwidget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(70, 60, 351, 321));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
@@ -75,7 +75,8 @@ public:
         menuFile->addAction(actionExit);
 
         retranslateUi(MainWindow);
-        //QObject::connect(tableView, SIGNAL(clicked(QModelIndex)), MainWindow, SLOT(itemClicked()));
+        QObject::connect(tableView, SIGNAL(entered(QModelIndex)), MainWindow, SLOT(itemClicked(QModelIndex)));
+        QObject::connect(pushButton, SIGNAL(clicked()), MainWindow, SLOT(import()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -89,6 +90,7 @@ public:
 #endif // QT_NO_SHORTCUT
         pushButton->setText(QApplication::translate("MainWindow", "\345\257\274\345\205\245", Q_NULLPTR));
         pushButton_2->setText(QApplication::translate("MainWindow", "\350\257\206\345\210\253", Q_NULLPTR));
+        label->setText(QApplication::translate("MainWindow", "TextLabel", Q_NULLPTR));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
     } // retranslateUi
 
