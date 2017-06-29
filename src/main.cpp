@@ -1,6 +1,7 @@
 #include <iostream>
 #include <QApplication>
 #include "dialogs/MainWindow.h"
+#include "dialogs/Login.h"
 #include "qiniu/io.h"
 #include "qiniu/rs.h"
 #include "qiniu/base.h"
@@ -25,8 +26,13 @@ int main(int argc, char* argv[]) {
     manager->uploadFile(&client,bucketName,&mac);
     Qiniu_Client_Cleanup(&client);
     Qiniu_Servend_Cleanup();
+<<<<<<< HEAD
+=======
+    Dialog * login = new Dialog();
+>>>>>>> 3c5f7b57fc9ce4d327285707e19f1bcd5a3f66be
     MainWindow* mainWindow = new MainWindow();
-    mainWindow->show();
+
+    login->show();
 
     return app->exec();
 }

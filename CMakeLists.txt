@@ -6,6 +6,8 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # Instruct CMake to run moc automatically when needed.
 set(CMAKE_AUTOMOC ON)
 include_directories(include)
+include_directories(/usr/local/mysql/include)
+link_directories(/usr/local/mysql/lib)
 link_directories(lib)
 INCLUDE_DIRECTORIES( ${OpenCV_INCLUDE_DIRS} )
 #include_directories(${OpenCV_INCLUDES})
@@ -25,8 +27,11 @@ aux_source_directory(src/dialogs SOURCE_DIR)
 aux_source_directory(src/ui SOURCE_DIR)
 aux_source_directory(src/widgets SOURCE_DIR)
 aux_source_directory(src/model SOURCE_DIR)
+set(LOCAL_LIBS mysqlcppconn m mysqlclient z libeasypr.a libqiniu.dylib ${OpenCV_LIBS} Qt5::Widgets Qt5::Core thirdparty)
 
 add_executable(${PROJECT_NAME} ${SOURCE_DIR} src/main.cpp)
-target_link_libraries(${PROJECT_NAME} libeasypr.a libqiniu.dylib)
+target_link_libraries(${PROJECT_NAME} ${LOCAL_LIBS})
 
-target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS} Qt5::Widgets Qt5::Core thirdparty)
+add_executable(MySQLTest ${SOURCE_DIR} test/mysql_test.cpp)
+target_link_libraries(MySQLTest ${LOCAL_LIBS})
+

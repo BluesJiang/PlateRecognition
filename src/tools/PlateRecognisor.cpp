@@ -27,7 +27,7 @@ void PlateRecognisor::recognizePlateInDirectory(QString path, std::vector<CPlate
 
         QString str(ptr->d_name);
         if (str.endsWith(".jpg")) {
-            QString name = path + str;
+            QString name = path + "/" + str;
             std::cout << name.toStdString().c_str() << std::endl;
             CPlate plate;
             recognizePlateInFile(name, plate);
@@ -38,6 +38,19 @@ void PlateRecognisor::recognizePlateInDirectory(QString path, std::vector<CPlate
 
 
 }
+
+void PlateRecognisor::recognizePlateInDirectory(QFileInfoList & infoList, std::vector<CPlate>& plates) {
+    for(int i = 0; i < infoList.size(); i++)
+    {
+        CPlate plate;
+        recognizePlateInFile(infoList[i].filePath(), plate);
+        plates.push_back(plate);
+    }
+
+
+}
+
+
 
 void PlateRecognisor::recognizePlateInFile(QString path, CPlate& plate) {
 
