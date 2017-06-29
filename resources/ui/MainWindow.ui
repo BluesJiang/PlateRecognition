@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1200</width>
+    <height>851</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,18 +17,18 @@
    <widget class="QTableView" name="tableView">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>70</y>
-      <width>311</width>
-      <height>451</height>
+      <x>560</x>
+      <y>100</y>
+      <width>581</width>
+      <height>671</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>30</y>
+      <x>560</x>
+      <y>60</y>
       <width>113</width>
       <height>32</height>
      </rect>
@@ -40,8 +40,34 @@
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>30</y>
+      <x>680</x>
+      <y>60</y>
+      <width>113</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>批量识别</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>180</y>
+      <width>461</width>
+      <height>451</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>60</y>
       <width>113</width>
       <height>32</height>
      </rect>
@@ -50,26 +76,13 @@
      <string>识别</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>60</y>
-      <width>351</width>
-      <height>321</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1200</width>
      <height>22</height>
     </rect>
    </property>
@@ -95,30 +108,14 @@
  <resources/>
  <connections>
   <connection>
-   <sender>tableView</sender>
-   <signal>entered(QModelIndex)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>itemClicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>605</x>
-     <y>317</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>399</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>pushButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>import()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>496</x>
-     <y>67</y>
+     <x>616</x>
+     <y>113</y>
     </hint>
     <hint type="destinationlabel">
      <x>399</x>
@@ -133,8 +130,8 @@
    <slot>recognize()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>616</x>
-     <y>67</y>
+     <x>736</x>
+     <y>97</y>
     </hint>
     <hint type="destinationlabel">
      <x>399</x>

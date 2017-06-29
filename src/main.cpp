@@ -21,6 +21,7 @@ int main(int argc, char* argv[]) {
     Qiniu_Servend_Cleanup();
 
     MainWindow* mainWindow = new MainWindow();
+
     mainWindow->show();
 
     return app->exec();
