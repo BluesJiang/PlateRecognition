@@ -14,7 +14,9 @@ public:
     std::string plate;
     std::string url;
 
+    PlateModel();
     PlateModel(const std::string &plate, const std::string &url, const std::string &owner);
+    void description();
 };
 
 
