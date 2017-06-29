@@ -1,0 +1,16 @@
+//
+// Created by CGJ on 2017/6/29.
+//
+
+#ifndef PLATERECOGNITION_QINIUMANAGER_H
+#define PLATERECOGNITION_QINIUMANAGER_H
+
+
+
+class QiniuManager {
+
+};
+
+
+
+#endif //PLATERECOGNITION_QINIUMANAGER_H
