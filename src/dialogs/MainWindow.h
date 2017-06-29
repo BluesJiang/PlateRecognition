@@ -14,9 +14,11 @@
 #include <QDir>
 #include <vector>
 #include <easypr.h>
+
 #include "../ui/ui_MainWindow.h"
 #include "src/tools/PlateRecognisor.h"
 using namespace std;
+using namespace easypr;
 
 class MainWindow: public QMainWindow {
     Q_OBJECT
@@ -24,6 +26,8 @@ class MainWindow: public QMainWindow {
     QStandardItemModel * standardItemModel = NULL;
     vector<QImage *> images;
     QFileInfoList fileInfoList;
+    vector<CPlate> plates;
+    QString filePath;
 public:
     explicit MainWindow(QWidget* parent = 0);
     ~ MainWindow();
