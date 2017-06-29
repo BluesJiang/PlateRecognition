@@ -20,10 +20,10 @@ int main(int argc, char* argv[]) {
     Qiniu_Servend_Init(-1);
     Qiniu_Client_InitMacAuth(&client, 1024, &mac);
 
-    QiniuManager * manager = new QiniuManager();
-    const  char* bucketName = "cpptest";
-
-    manager->uploadFile(&client,bucketName,&mac);
+//    QiniuManager * manager = new QiniuManager();
+//    const  char* bucketName = "cpptest";
+//
+//    manager->uploadFile(&client,bucketName,&mac);
     Qiniu_Client_Cleanup(&client);
     Qiniu_Servend_Cleanup();
 <<<<<<< HEAD
