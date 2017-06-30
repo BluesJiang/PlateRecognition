@@ -6,9 +6,9 @@
 #define PLATERECOGNITION_LOGIN_H
 
 #include <QDialog>
-#include "../ui/ui_Login.h"
+#include "ui_Login.h"
 
-#include "src/tools/PlateRecognisor.h"
+#include "PlateRecognisor.h"
 using namespace std;
 using namespace easypr;
 

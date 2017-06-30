@@ -7,6 +7,7 @@
 #include "qiniu/rs.h"
 #include "qiniu/base.h"
 #include "qiniu/resumable_io.h"
+#include "tools/QiniuManager.h"
 using namespace std;
 
 int main(int argc, char* argv[]) {
@@ -20,16 +21,24 @@ int main(int argc, char* argv[]) {
     // 初始化
     Qiniu_Servend_Init(-1);
     Qiniu_Client_InitMacAuth(&client, 1024, &mac);
+
+//    QiniuManager * manager = new QiniuManager();
+//    const  char* bucketName = "cpptest";
+//
+//    manager->uploadFile(&client,bucketName,&mac);
     Qiniu_Client_Cleanup(&client);
     Qiniu_Servend_Cleanup();
-    Dialog * login = new Dialog();
+
+//    Dialog * login = new Dialog();
     MainWindow* mainWindow = new MainWindow();
     SearchWindow * searchWindow = new SearchWindow();
 
 
 
 
-    searchWindow->show();
+
+
+    mainWindow->show();
 
     return app->exec();
 }

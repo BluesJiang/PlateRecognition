@@ -15,8 +15,8 @@
 #include <vector>
 #include <easypr.h>
 
-#include "../ui/ui_MainWindow.h"
-#include "src/tools/PlateRecognisor.h"
+#include "ui_MainWindow.h"
+#include "PlateRecognisor.h"
 using namespace std;
 using namespace easypr;
 

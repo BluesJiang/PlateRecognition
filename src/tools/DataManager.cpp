@@ -8,11 +8,12 @@
 DataManager::DataManager():ip("123.207.59.11"), user("root"), pwd("5Believe!!"), dbname("PlateRecognition") {
     mysql_init(&mysql);
     mysql_set_character_set(&mysql, "utf8");
-    connect = mysql_real_connect(&mysql, ip.c_str(), user.c_str(), pwd.c_str(), dbname.c_str(), 0, 0, 0);
+    qiniuManager = new QiniuManager();
 }
 
 DataManager::~DataManager() {
     mysql_close(connect);
+    delete qiniuManager;
 }
 
 
@@ -38,8 +39,17 @@ int DataManager::queryPlateInfoWithOwner(std::string owner, PlateModel &retPlate
     return queryPlateInfo("owner", owner, retPlate);
 }
 
+int DataManager::queryPlateInfoWithOwner(std::string owner, std::vector<PlateModel> &retVec) {
+    std::string sql_query = "select * from PlateInfo where owner=\"" + owner +"\"";
+    return queryMultiObject(sql_query, retVec);
+}
+
 int DataManager::queryPlateInfoWithPlate(std::string plate, PlateModel &retPlate) {
     return queryPlateInfo("plate", plate, retPlate);
+}
+int DataManager::queryPlateInfoWithPlate(std::string plate, std::vector<PlateModel> &retVec) {
+    std::string sql_query = "select * from PlateInfo where owner=\"" + plate +"\"";
+    return queryMultiObject(sql_query, retVec);
 }
 
 int DataManager::queryPlateInfo(std::string ownerOrPlate, std::string key, PlateModel &retPlate) {
@@ -96,7 +106,7 @@ int DataManager::queryPlateInfoWithPlateKeyword(std::string keyword, std::vector
     return queryMultiObject(sql_query, retVec);
 }
 
-int DataManager::queryMultiObject(std::string sql_query, std::vector<PlateModel, std::allocator<PlateModel>> &retVec) {
+int DataManager::queryMultiObject(std::string sql_query, std::vector<PlateModel, std::allocator<PlateModel>>& retVec) {
     connectDB();
     std::cout << sql_query << std::endl;
     int res = mysql_query(&mysql, sql_query.c_str());
@@ -129,6 +139,74 @@ int DataManager::queryPlateInfo(std::string ownerOrPlate, std::vector<std::strin
     sql_query[sql_query.length()-1] = ')';
     return queryMultiObject(sql_query, retVec);
 }
+
+int DataManager::uploadPlate(const PlateModel &plate) {
+    PlateModel tmpPlate;
+    int res = queryPlateInfoWithPlate(plate.plate, tmpPlate);
+    std::string sql_query;
+    if (!res) {
+        sql_query = "update PlateInfo set images='";
+        if (tmpPlate.url != "") {
+            tmpPlate.url += ";" + plate.url;
+        } else {
+            tmpPlate.url = plate.url;
+        }
+        sql_query += tmpPlate.url;
+        sql_query += "' where plate="+tmpPlate.plate;
+    } else {
+        sql_query = "insert into PlateInfo (plate, owner, images) values ";
+        sql_query += plate.packForSQLValues();
+    }
+
+    return updateDB(sql_query);
+}
+
+int DataManager::uploadPlate(const std::vector<PlateModel> &plates) {
+    std::vector<PlateModel> retVec;
+    qiniuManager->uploadFile(plates, retVec);
+    std::string sql_query;
+    int count = 0;
+    for (auto plate : retVec) {
+        PlateModel tmpPlate;
+        int res = queryPlateInfoWithPlate(plate.plate, tmpPlate);
+        if (!res) {
+            sql_query = "update PlateInfo set images='";
+            if (tmpPlate.url != "") {
+                tmpPlate.url += ";" + plate.url;
+            } else {
+                tmpPlate.url = plate.url;
+            }
+            sql_query += tmpPlate.url;
+            sql_query += "' where plate="+tmpPlate.plate;
+            if(updateDB(sql_query) == 0) {
+                count++;
+            }
+
+        } else {
+            sql_query = "insert into PlateInfo (plate, owner, images) values ";
+            sql_query += plate.packForSQLValues();
+            if(updateDB(sql_query) == 0) {
+                count++;
+            }
+        }
+    }
+    return count;
+}
+
+int DataManager::updateDB(std::string sql_str) {
+    connectDB();
+    int res = mysql_query(&mysql, sql_str.c_str());
+    if (!res) {
+        return 0;
+    }
+    return -1;
+}
+
+
+
+
+
+
 
 
 

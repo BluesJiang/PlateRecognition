@@ -17,3 +17,13 @@ void PlateModel::description() {
     cout << des.c_str() << endl;
 
 }
+
+PlateModel::PlateModel(const PlateModel &plate) {
+    this->owner = plate.owner;
+    this->plate = plate.plate;
+    this->url = plate.url;
+}
+
+std::string PlateModel::packForSQLValues() const {
+    return "('"+plate+"','"+owner+"','"+url+"')";
+}
