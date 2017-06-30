@@ -1,11 +1,11 @@
 //
-// Created by 杨晨 on 2017/6/30.
+// Created by BluesJiang on 2017/6/30.
 //
 
-#include "SearchWindow.h"
+#include "SearchTab.h"
 
-SearchWindow::SearchWindow(QWidget *parent) {
-    ui = new Ui::SearchWindow();
+SearchTab::SearchTab(QWidget *parent) {
+    ui = new Ui::SearchTab();
     ui->setupUi(this);
     standardItemModel = new QStandardItemModel(this);
     standardItemModel->setColumnCount(2);
@@ -20,19 +20,18 @@ SearchWindow::SearchWindow(QWidget *parent) {
     ui->listWidget->setViewMode(QListView::IconMode);
     ui->listWidget->setMovement(QListView::Static);
     ui->listWidget->setSpacing(8);
-    ui->pushButton_2->setEnabled(false);
+    ui->searchButton->setEnabled(false);
     networkAccessManager = new QNetworkAccessManager(this);
     connect(networkAccessManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(replyFinished(QNetworkReply *)));
 }
 
-
-SearchWindow::~SearchWindow() {
+SearchTab::~SearchTab() {
     delete ui;
     delete standardItemModel;
     delete networkAccessManager;
 }
 
-void SearchWindow::searchAndShow() {
+void SearchTab::searchAndShow() {
     count = 0;
     imageUrls.clear();
     standardItemModel->removeRows(0,standardItemModel->rowCount());
@@ -75,13 +74,9 @@ void SearchWindow::searchAndShow() {
     int columnWidth = ui->tableView->width() / 2;
     ui->tableView->setColumnWidth(0, columnWidth);
     ui->tableView->setColumnWidth(1, columnWidth);
-
-
 }
 
-
-void SearchWindow::display(QListWidgetItem * item)
-{
+void SearchTab::display(QListWidgetItem * item) {
     int index = item->text().toInt() - 1;
     QPixmap tempPixmap = pixmaps[index];
     tempPixmap = tempPixmap.scaled(QSize(481, 311), Qt::KeepAspectRatio);
@@ -89,11 +84,11 @@ void SearchWindow::display(QListWidgetItem * item)
     ui->label->setAlignment(Qt::AlignCenter);
 }
 
-void SearchWindow::enablesearch() {
-    ui->pushButton_2->setEnabled(true);
+void SearchTab::enableSearchButton() {
+    ui->searchButton->setEnabled(true);
 }
 
-void SearchWindow::replyFinished(QNetworkReply * reply){
+void SearchTab::replyFinished(QNetworkReply *) {
     QPixmap imagePixmap;
     imagePixmap.loadFromData(reply->readAll());
     pixmaps.push_back(imagePixmap);

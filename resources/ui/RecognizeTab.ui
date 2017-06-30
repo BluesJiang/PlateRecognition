@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>RecognizeTab</class>
+ <widget class="QWidget" name="RecognizeTab">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1050</width>
+    <height>500</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>50</y>
+     <width>285</width>
+     <height>410</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QTableView" name="tableView">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>50</y>
+     <width>600</width>
+     <height>410</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="importButton">
+   <property name="geometry">
+    <rect>
+     <x>403</x>
+     <y>20</y>
+     <width>100</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>导入</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="recognizeButton">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>20</y>
+     <width>100</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>识别</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="uploadButton">
+   <property name="geometry">
+    <rect>
+     <x>616</x>
+     <y>20</y>
+     <width>100</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>上传</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>importButton</sender>
+   <signal>clicked()</signal>
+   <receiver>RecognizeTab</receiver>
+   <slot>import()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>452</x>
+     <y>35</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
+     <y>249</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>recognizeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>RecognizeTab</receiver>
+   <slot>recognize()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>559</x>
+     <y>35</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
+     <y>249</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>import()</slot>
+  <slot>recognize()</slot>
+ </slots>
+</ui>

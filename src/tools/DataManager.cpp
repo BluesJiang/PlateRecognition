@@ -79,7 +79,7 @@ int DataManager::querySingleObject(std::string sql_str, PlateModel &retPlate) {
 void DataManager::connectDB() {
     static bool onceToken = 1;
     if (onceToken) {
-        onceToken = 0;
+//        onceToken = 0;
         connect = mysql_real_connect(&mysql, ip.c_str(), user.c_str(), pwd.c_str(), dbname.c_str(), 0, 0, 0);
     }
 }

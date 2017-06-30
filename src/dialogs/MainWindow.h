@@ -17,31 +17,20 @@
 
 #include "ui_MainWindow.h"
 #include "PlateRecognisor.h"
+#include "RecognizeTab.h"
+#include "SearchTab.h"
 using namespace std;
 using namespace easypr;
 
 class MainWindow: public QMainWindow {
     Q_OBJECT
     Ui::MainWindow* ui = NULL;
-    QStandardItemModel * standardItemModel = NULL;
-    vector<QImage *> images;
-    QFileInfoList fileInfoList;
-    vector<CPlate> plates;
-    QString filePath;
+    RecognizeTab* recognizeTab;
+    SearchTab* searchTab;
 public:
     explicit MainWindow(QWidget* parent = 0);
     ~ MainWindow();
 
-protected:
-    void showEvent(QShowEvent *event);
-
-
-private slots:
-
-    void onActionExitClicked();
-    void itemClicked(QModelIndex index);
-    void import();
-    void recognize();
 
 
 
