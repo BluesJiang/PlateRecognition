@@ -10,7 +10,10 @@ include_directories(/usr/local/mysql/include)
 include_directories(
       src/dialogs src/tools src/model src/ui src/widgets src
 )
+include_directories(/usr/local/include/mysql)
 link_directories(/usr/local/mysql/lib)
+link_directories(/usr/local/lib)
+
 link_directories(lib)
 include_directories(${OpenCV_INCLUDE_DIRS})
 find_package(OpenCV REQUIRED)
@@ -37,3 +40,5 @@ target_link_libraries(${PROJECT_NAME} ${LOCAL_LIBS})
 add_executable(MySQLTest ${SOURCE_DIR} test/mysql_test.cpp)
 target_link_libraries(MySQLTest ${LOCAL_LIBS})
 
+add_executable(QiniuTest ${SOURCE_DIR} test/qiniu_test.cpp)
+target_link_libraries(QiniuTest ${LOCAL_LIBS})
