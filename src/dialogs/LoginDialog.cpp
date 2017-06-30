@@ -2,12 +2,12 @@
 // Created by 杨晨 on 2017/6/29.
 //
 
-#include "Login.h"
+#include "LoginDialog.h"
 #include <iostream>
 
 
-Dialog::Dialog(QWidget *parent) {
-    ui = new Ui::Dialog();
+LoginDialog::LoginDialog(QWidget *parent) {
+    ui = new Ui::LoginDialog();
     ui->setupUi(this);
     ui->label->setAlignment(Qt::AlignCenter);
     ui->label_2->setAlignment(Qt::AlignRight);
@@ -23,6 +23,6 @@ Dialog::Dialog(QWidget *parent) {
 
 }
 
-Dialog::~Dialog() {
+LoginDialog::~LoginDialog() {
     delete ui;
 }

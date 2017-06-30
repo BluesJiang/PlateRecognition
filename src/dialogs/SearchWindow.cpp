@@ -33,6 +33,7 @@ SearchWindow::~SearchWindow() {
 void SearchWindow::searchAndShow() {
     imageUrls.clear();
     standardItemModel->removeRows(0,standardItemModel->rowCount());
+    count = 0;
     DataManager manager;
     PlateModel plateModel;
     std::string plate, owner;
@@ -55,7 +56,7 @@ void SearchWindow::searchAndShow() {
 
     for(int i = 0 ;i < imageCount; i++)
     {
-        request.setUrl(QUrl("http://osabw6t6t.bkt.clouddn.com/65ED0AB9-749A-4CB4-9D21-2C1BEF33F085;"));
+        request.setUrl(QUrl(imageUrls[i]));
 
         networkAccessManager->get(request);
 
@@ -92,7 +93,9 @@ void SearchWindow::enablesearch() {
 void SearchWindow::replyFinished(QNetworkReply * reply){
     QPixmap imagePixmap;
     imagePixmap.loadFromData(reply->readAll());
+
     pixmaps.push_back(imagePixmap);
+
     imagePixmap = imagePixmap.scaled(QSize(100, 90), Qt::KeepAspectRatio);
     QListWidgetItem * item = new QListWidgetItem(QIcon(imagePixmap), QString::number(count+1, 10));
     item->setSizeHint(QSize(100,110));

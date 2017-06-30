@@ -37,8 +37,8 @@ set(LOCAL_LIBS mysqlcppconn m mysqlclient z libeasypr.a libqiniu.dylib ${OpenCV_
 add_executable(${PROJECT_NAME} ${SOURCE_DIR} src/main.cpp)
 target_link_libraries(${PROJECT_NAME} ${LOCAL_LIBS})
 
-#add_executable(MySQLTest ${SOURCE_DIR} test/mysql_test.cpp)
-#target_link_libraries(MySQLTest ${LOCAL_LIBS})
+add_executable(MySQLTest ${SOURCE_DIR} test/mysql_test.cpp)
+target_link_libraries(MySQLTest ${LOCAL_LIBS})
 
 add_executable(QiniuTest ${SOURCE_DIR} test/qiniu_test.cpp)
 target_link_libraries(QiniuTest ${LOCAL_LIBS})
