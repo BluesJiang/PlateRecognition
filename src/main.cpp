@@ -27,10 +27,11 @@ int main(int argc, char* argv[]) {
     Qiniu_Client_Cleanup(&client);
     Qiniu_Servend_Cleanup();
 
-    Dialog * login = new Dialog();
+//    Dialog * login = new Dialog();
     MainWindow* mainWindow = new MainWindow();
 
-    login->show();
+
+    mainWindow->show();
 
     return app->exec();
 }

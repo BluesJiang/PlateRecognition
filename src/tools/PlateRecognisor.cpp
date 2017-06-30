@@ -3,8 +3,7 @@
 //
 
 #include "PlateRecognisor.h"
-#include <sys/types.h>
-#include <dirent.h>
+#include <QTimer>
 
 
 using namespace easypr;
@@ -16,26 +15,15 @@ PlateRecognisor::PlateRecognisor() {
     pr.setMaxPlates(1);
 }
 
-void PlateRecognisor::recognizePlateInDirectory(QString path, std::vector<CPlate>& plates) {
+void PlateRecognisor::recognizePlateInDirectory(const QString& path, std::vector<CPlate>& plates) {
     std::string stdpath = path.toStdString();
-    DIR* dir = opendir(stdpath.c_str());
-    struct dirent* ptr = NULL;
-    while ((ptr = readdir(dir)) != NULL) {
-        if (ptr->d_name[0] == '.') {
-            continue;
-        }
-
-        QString str(ptr->d_name);
-        if (str.endsWith(".jpg")) {
-            QString name = path + "/" + str;
-            std::cout << name.toStdString().c_str() << std::endl;
-            CPlate plate;
-            recognizePlateInFile(name, plate);
-            plates.push_back(plate);
-        }
-
-    }
-
+    QDir dir(path);
+    dir.setFilter(QDir::Files);
+    QStringList filters;
+    filters<<QString("*.jpeg")<<QString("*.jpg")<<QString("*.png");
+    dir.setNameFilters(filters);
+    QFileInfoList list = dir.entryInfoList();
+    recognizePlateInDirectory(list, plates);
 
 }
 
@@ -46,11 +34,7 @@ void PlateRecognisor::recognizePlateInDirectory(QFileInfoList & infoList, std::v
         recognizePlateInFile(infoList[i].filePath(), plate);
         plates.push_back(plate);
     }
-
-
 }
-
-
 
 void PlateRecognisor::recognizePlateInFile(QString path, CPlate& plate) {
 
@@ -60,7 +44,6 @@ void PlateRecognisor::recognizePlateInFile(QString path, CPlate& plate) {
     if (result == 0 && plateVec.size() == 1) {
         plate = plateVec.at(0);
     }
-
 }
 
 QString PlateRecognisor::recognizePlateInFile(QString path) {
@@ -75,3 +58,9 @@ QString PlateRecognisor::recognizePlateInFile(QString path) {
     }
 
 }
+
+
+
+
+
+

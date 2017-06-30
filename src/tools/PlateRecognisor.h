@@ -8,12 +8,14 @@
 #include <vector>
 #include <qstring.h>
 #include <easypr.h>
+#include <QDir>
 #include <QFileInfoList>
+
 class PlateRecognisor {
     easypr::CPlateRecognize pr;
 public:
     explicit PlateRecognisor();
-    void recognizePlateInDirectory(QString path, std::vector<easypr::CPlate>& plates);
+    void recognizePlateInDirectory(const QString& path, std::vector<easypr::CPlate>& plates);
     void recognizePlateInFile(QString path, easypr::CPlate& plate);
     QString recognizePlateInFile(QString path);
     void recognizePlateInDirectory(QFileInfoList & infoList, std::vector<easypr::CPlate>& plates);

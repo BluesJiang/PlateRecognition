@@ -30,9 +30,6 @@ public:
     int uploadPlate(const PlateModel& plate);
     int uploadPlate(const std::vector<PlateModel>& plates);
 
-
-
-
     virtual ~DataManager();
 
 private:

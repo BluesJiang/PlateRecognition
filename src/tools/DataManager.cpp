@@ -146,7 +146,11 @@ int DataManager::uploadPlate(const PlateModel &plate) {
     std::string sql_query;
     if (!res) {
         sql_query = "update PlateInfo set images='";
-        tmpPlate.url += plate.url;
+        if (tmpPlate.url != "") {
+            tmpPlate.url += ";" + plate.url;
+        } else {
+            tmpPlate.url = plate.url;
+        }
         sql_query += tmpPlate.url;
         sql_query += "' where plate="+tmpPlate.plate;
     } else {
@@ -167,7 +171,11 @@ int DataManager::uploadPlate(const std::vector<PlateModel> &plates) {
         int res = queryPlateInfoWithPlate(plate.plate, tmpPlate);
         if (!res) {
             sql_query = "update PlateInfo set images='";
-            tmpPlate.url += plate.url;
+            if (tmpPlate.url != "") {
+                tmpPlate.url += ";" + plate.url;
+            } else {
+                tmpPlate.url = plate.url;
+            }
             sql_query += tmpPlate.url;
             sql_query += "' where plate="+tmpPlate.plate;
             if(updateDB(sql_query) == 0) {
