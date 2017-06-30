@@ -24,11 +24,15 @@ int main(int argc, char* argv[]) {
     vector<PlateModel> plates;
     vector<PlateModel> retVec;
 
+
     plates.push_back(PlateModel("123456",  "/Users/cgj/Desktop/upload/jikeup1.jpg","guojin"));
     plates.push_back(PlateModel("123457",  "/Users/cgj/Desktop/upload/jikeup2.jpg","guojin1"));
     manager->uploadFile(plates,retVec);
 
-//    cout<<"palte1 url:"<<retVec[0].url<<endl;
+    PlateModel  plateSingle("test", "/Users/cgj/Desktop/upload/jikeup2.jpg", "guojinTEst");
+    PlateModel  retPlate;
+    manager->uploadFile(plateSingle,retPlate);
+    cout<<"retPalte url:"<<retPlate.url<<endl;
     Dialog * login = new Dialog();
     MainWindow* mainWindow = new MainWindow();
 
