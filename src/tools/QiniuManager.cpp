@@ -83,9 +83,9 @@ int QiniuManager::uploadFile(std::vector<PlateModel> inputVec,std::vector<PlateM
 //    }
 
     Qiniu_Free(uploadtoken);
-}
+};
 
-int QiniuManager::uploadSingleFile(PlateModel inPlate, PlateModel & retPlate) {
+int QiniuManager::uploadFile(PlateModel inPlate, PlateModel & retPlate) {
     Qiniu_Client client;
     Qiniu_Mac mac;
     const  char* bucketName = "cpptest";
@@ -126,8 +126,8 @@ int QiniuManager::uploadSingleFile(PlateModel inPlate, PlateModel & retPlate) {
 
 
     Qiniu_Free(uploadtoken);
-}
+};
 
 QiniuManager::QiniuManager() {
 
-}
+};

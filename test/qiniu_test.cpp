@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
 
     PlateModel  plateSingle("test", "/Users/cgj/Desktop/upload/jikeup2.jpg", "guojinTEst");
     PlateModel  retPlate;
-    manager->uploadSingleFile(plateSingle,retPlate);
+    manager->uploadFile(plateSingle,retPlate);
     cout<<"retPalte url:"<<retPlate.url<<endl;
     Dialog * login = new Dialog();
     MainWindow* mainWindow = new MainWindow();

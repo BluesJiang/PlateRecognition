@@ -27,7 +27,7 @@ public:
 
     int uploadFile(std::vector<PlateModel, std::allocator<PlateModel>> inputVec,
                    std::vector<PlateModel, std::allocator<PlateModel>> &retVec);
-    int uploadSingleFile(PlateModel inPlate, PlateModel & retPlate);
+    int uploadFile(PlateModel inPlate, PlateModel & retPlate);
 
 private:
     void  debuginfo(Qiniu_Client* client, Qiniu_Error err);
