@@ -65,10 +65,12 @@ int main() {
     for (auto val : plateVector) {
         val.description();
     }
-    plate.url = "test;";
-    manager.uploadPlate(plate);
-    manager.uploadPlate(plate);
+    plateVector.clear();
+    plateVector.push_back(PlateModel("123456", "/Users/Blues/Downloads/发送文件/03.CarPicture/03.CarPicture/琼AM6666.jpg", "blues"));
+    plateVector.push_back(PlateModel("123456", "/Users/Blues/Downloads/发送文件/03.CarPicture/03.CarPicture/DSCF2916.JPG", "blues"));
+    plateVector.push_back(PlateModel("123456","/Users/Blues/Downloads/发送文件/03.CarPicture/03.CarPicture/DSCF2916.JPG", "blues"));
     manager.uploadPlate(plateVector);
+
 
     return 0;
 }

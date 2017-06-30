@@ -25,5 +25,5 @@ PlateModel::PlateModel(const PlateModel &plate) {
 }
 
 std::string PlateModel::packForSQLValues() const {
-    return "("+plate+","+owner+",'"+url+"')";
+    return "('"+plate+"','"+owner+"','"+url+"')";
 }
