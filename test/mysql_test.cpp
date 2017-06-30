@@ -51,6 +51,9 @@ int main() {
     manager.queryPlateInfoWithOwner("蒋志远", plate);
     plate.description();
 
+    manager.queryPlateInfoWithPlate("12345", plate);
+    plate.description();
+
     vector<PlateModel> plateVector;
     vector<string> names = {"blues", "yangchen"};
     manager.queryPlateInfoWithOwners(names, plateVector);
@@ -62,7 +65,10 @@ int main() {
     for (auto val : plateVector) {
         val.description();
     }
-
+    plate.url = "test;";
+    manager.uploadPlate(plate);
+    manager.uploadPlate(plate);
+    manager.uploadPlate(plateVector);
 
     return 0;
 }

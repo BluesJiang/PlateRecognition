@@ -7,10 +7,12 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 include_directories(include)
 include_directories(/usr/local/mysql/include)
+include_directories(
+      src/dialogs src/tools src/model src/ui src/widgets src
+)
 link_directories(/usr/local/mysql/lib)
 link_directories(lib)
-INCLUDE_DIRECTORIES( ${OpenCV_INCLUDE_DIRS} )
-#include_directories(${OpenCV_INCLUDES})
+include_directories(${OpenCV_INCLUDE_DIRS})
 find_package(OpenCV REQUIRED)
 # Find includes in corresponding build directories
 

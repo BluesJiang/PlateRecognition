@@ -6,10 +6,10 @@
 #define PLATERECOGNITION_QINIUMANAGER_H
 
 #include <vector>
-//#include <../model/PlateModel.h>
+//#include <PlateModel.h>
 #include <iostream>
 //#include <QApplication>
-//#include "dialogs/MainWindow.h"
+//#include "MainWindow.h"
 #include "qiniu/io.h"
 #include "qiniu/rs.h"
 #include "qiniu/base.h"
