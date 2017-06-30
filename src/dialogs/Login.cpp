@@ -15,7 +15,8 @@ Dialog::Dialog(QWidget *parent) {
     ui->label_2->setAlignment(Qt::AlignVCenter);
     ui->label_3->setAlignment(Qt::AlignVCenter);
     ui->lineEdit_2->setEchoMode(QLineEdit::Password);
-    QImage * image = new QImage("/Users/yangchen/Desktop/logo.png");
+    QImage * image = new QImage("https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png");
+
     ui->label->setPixmap(QPixmap::fromImage(*image));
 
 

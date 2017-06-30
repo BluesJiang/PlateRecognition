@@ -2,6 +2,7 @@
 #include <QApplication>
 #include "dialogs/MainWindow.h"
 #include "dialogs/Login.h"
+#include "dialogs/SearchWindow.h"
 #include "qiniu/io.h"
 #include "qiniu/rs.h"
 #include "qiniu/base.h"
@@ -9,6 +10,7 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
+
     QApplication* app = new QApplication(argc, argv);
     Qiniu_Client client;
     Qiniu_Mac mac;
@@ -22,8 +24,12 @@ int main(int argc, char* argv[]) {
     Qiniu_Servend_Cleanup();
     Dialog * login = new Dialog();
     MainWindow* mainWindow = new MainWindow();
+    SearchWindow * searchWindow = new SearchWindow();
 
-    login->show();
+
+
+
+    searchWindow->show();
 
     return app->exec();
 }
