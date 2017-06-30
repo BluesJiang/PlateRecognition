@@ -5,7 +5,7 @@
 #include <iostream>
 #include <QApplication>
 #include "src/dialogs/MainWindow.h"
-#include "src/dialogs/Login.h"
+#include "src/dialogs/LoginDialog.h"
 #include "qiniu/io.h"
 #include "qiniu/rs.h"
 #include "qiniu/base.h"

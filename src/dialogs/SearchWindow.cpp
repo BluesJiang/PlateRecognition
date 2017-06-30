@@ -59,8 +59,7 @@ void SearchWindow::searchAndShow() {
 
     for(int i = 0 ;i < imageCount; i++)
     {
-        request.setUrl(imageUrls[i]);
-
+        request.setUrl(QUrl(imageUrls[i]));
         networkAccessManager->get(request);
 
 
@@ -96,7 +95,9 @@ void SearchWindow::enablesearch() {
 void SearchWindow::replyFinished(QNetworkReply * reply){
     QPixmap imagePixmap;
     imagePixmap.loadFromData(reply->readAll());
+
     pixmaps.push_back(imagePixmap);
+
     imagePixmap = imagePixmap.scaled(QSize(100, 90), Qt::KeepAspectRatio);
     QListWidgetItem * item = new QListWidgetItem(QIcon(imagePixmap), QString::number(count+1, 10));
     item->setSizeHint(QSize(100,110));

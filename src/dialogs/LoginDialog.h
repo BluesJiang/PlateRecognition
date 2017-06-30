@@ -6,17 +6,17 @@
 #define PLATERECOGNITION_LOGIN_H
 
 #include <QDialog>
-#include "ui_Login.h"
+#include "ui_LoginDialog.h"
 
 #include "PlateRecognisor.h"
 using namespace std;
 using namespace easypr;
 
-class Dialog: public QDialog {
+class LoginDialog: public QDialog {
     Q_OBJECT
-    Ui::Dialog * ui = NULL;
+    Ui::LoginDialog * ui = NULL;
 public:
-    explicit Dialog(QWidget* parent = 0);
+    explicit LoginDialog(QWidget* parent = 0);
     ~ Dialog();
 
 protected:
