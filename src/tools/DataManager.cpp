@@ -144,7 +144,6 @@ int DataManager::uploadPlate(const PlateModel &plate) {
     PlateModel tmpPlate;
     int res = queryPlateInfoWithPlate(plate.plate, tmpPlate);
     std::string sql_query;
-
     if (!res) {
         sql_query = "update PlateInfo set images='";
         tmpPlate.url += plate.url;
@@ -155,13 +154,15 @@ int DataManager::uploadPlate(const PlateModel &plate) {
         sql_query += plate.packForSQLValues();
     }
 
-    std::cout << sql_query.c_str() << std::endl;
-    updateDB(sql_query);
+    return updateDB(sql_query);
 }
 
 int DataManager::uploadPlate(const std::vector<PlateModel> &plates) {
+    std::vector<PlateModel> retVec;
+    qiniuManager->uploadFile(plates, retVec);
     std::string sql_query;
-    for (auto plate : plates) {
+    int count = 0;
+    for (auto plate : retVec) {
         PlateModel tmpPlate;
         int res = queryPlateInfoWithPlate(plate.plate, tmpPlate);
         if (!res) {
@@ -169,15 +170,19 @@ int DataManager::uploadPlate(const std::vector<PlateModel> &plates) {
             tmpPlate.url += plate.url;
             sql_query += tmpPlate.url;
             sql_query += "' where plate="+tmpPlate.plate;
-            updateDB(sql_query);
+            if(updateDB(sql_query) == 0) {
+                count++;
+            }
 
         } else {
             sql_query = "insert into PlateInfo (plate, owner, images) values ";
             sql_query += plate.packForSQLValues();
-            updateDB(sql_query);
+            if(updateDB(sql_query) == 0) {
+                count++;
+            }
         }
     }
-    std::cout << sql_query.c_str() << std::endl;
+    return count;
 }
 
 int DataManager::updateDB(std::string sql_str) {
