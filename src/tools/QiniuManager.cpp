@@ -85,6 +85,49 @@ int QiniuManager::uploadFile(std::vector<PlateModel> inputVec,std::vector<PlateM
     Qiniu_Free(uploadtoken);
 }
 
+int QiniuManager::uploadSingleFile(PlateModel inPlate, PlateModel & retPlate) {
+    Qiniu_Client client;
+    Qiniu_Mac mac;
+    const  char* bucketName = "cpptest";
+
+    mac.accessKey = "QC3MrjeF38x1iUIdVBRVRVnlmZYOlqFRQy2PQ4pK";
+    mac.secretKey = "l5hMWe_svAcifqy4zLjcScov18FAX75Xm9STxyLd";
+    // 初始化
+    Qiniu_Servend_Init(-1);
+    Qiniu_Client_InitMacAuth(&client, 1024, &mac);
+
+    char* uploadtoken = upLoadToken(bucketName, &mac);
+//    std::string uploadName[2] = {"jikeup3.jpg","jikeup4.jpg"};
+    // int i=0;
+
+        uuid_t uuid;
+        char str[36];
+        std::string pLocalFilePath = inPlate.url;
+        uuid_generate(uuid);
+        uuid_unparse(uuid, str);
+        // inPlate = inputaVec[i].
+        inPlate.url = str ;
+        std::string newUrl = inPlate.url+";";
+        inPlate.url = "http://osabw6t6t.bkt.clouddn.com/"+inPlate.url+";";
+        retPlate=inPlate;
+        Qiniu_Io_PutRet putRet;
+        Qiniu_Error error = Qiniu_Io_PutFile(&client, &putRet, uploadtoken, newUrl.c_str(), pLocalFilePath.c_str(), NULL);
+        if (error.code != 200)
+        {
+            printf("Upload File %s To %s:%s error.\n", pLocalFilePath.c_str(), bucketName, (inPlate.url).c_str());
+            debuginfo(&client, error);
+        }
+        else
+        {
+            printf("Upload File %s To %s:%s success.\n", pLocalFilePath.c_str(), bucketName, (inPlate.url).c_str());
+//            printf("uploadtoken: %s ",uploadtoken);
+        }
+        // i++;
+
+
+    Qiniu_Free(uploadtoken);
+}
+
 QiniuManager::QiniuManager() {
 
 }
