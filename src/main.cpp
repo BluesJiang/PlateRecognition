@@ -12,6 +12,7 @@
 #include "RecognizeTab.h"
 #include "SearchTab.h"
 #include "easypr.h"
+#include "PlateModel.h"
 
 typedef std::vector<easypr::CPlate> PlateVector;
 
@@ -35,6 +36,7 @@ int main(int argc, char* argv[]) {
 //    }
 
     qRegisterMetaType<std::vector<easypr::CPlate>>("std::vector<easypr::CPlate>");
+    qRegisterMetaType<std::vector<PlateModel>>("std::vector<PlateModel>");
 
 //    RecognizeTab regTab;
 //    SearchTab seaTab;

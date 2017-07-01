@@ -9,6 +9,7 @@ DataManager::DataManager():ip("123.207.59.11"), user("root"), pwd("5Believe!!"),
     mysql_init(&mysql);
     mysql_set_character_set(&mysql, "utf8");
     qiniuManager = new QiniuManager();
+    QObject::connect(qiniuManager, SIGNAL(resultReady(std::vector<PlateModel>)), this, SLOT(uploadFinished(std::vector<PlateModel>)));
 }
 
 DataManager::~DataManager() {
@@ -168,8 +169,22 @@ int DataManager::uploadPlate(const PlateModel &plate) {
 }
 
 int DataManager::uploadPlate(const std::vector<PlateModel> &plates) {
-    std::vector<PlateModel> retVec;
-    qiniuManager->uploadFile(plates, retVec);
+//    std::vector<PlateModel> retVec;
+    qiniuManager->uploadFile(plates);
+
+//    return count;
+}
+
+int DataManager::updateDB(std::string sql_str) {
+    connectDB();
+    int res = mysql_query(&mysql, sql_str.c_str());
+    if (!res) {
+        return 0;
+    }
+    return -1;
+}
+
+void DataManager::uploadFinished(std::vector<PlateModel> retVec) {
     std::string sql_query;
     int count = 0;
     for (auto plate : retVec) {
@@ -196,16 +211,7 @@ int DataManager::uploadPlate(const std::vector<PlateModel> &plates) {
             }
         }
     }
-    return count;
-}
-
-int DataManager::updateDB(std::string sql_str) {
-    connectDB();
-    int res = mysql_query(&mysql, sql_str.c_str());
-    if (!res) {
-        return 0;
-    }
-    return -1;
+    emit uploadFinished();
 }
 
 

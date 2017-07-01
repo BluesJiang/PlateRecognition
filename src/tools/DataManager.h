@@ -12,7 +12,8 @@
 #include "PlateModel.h"
 #include "QiniuManager.h"
 
-class DataManager {
+class DataManager : public QObject{
+    Q_OBJECT
     MYSQL* connect, mysql;
     const std::string ip, user, pwd, dbname;
     QiniuManager* qiniuManager;
@@ -32,6 +33,8 @@ public:
     int uploadPlate(const std::vector<PlateModel>& plates);
 
     virtual ~DataManager();
+signals:
+    void uploadFinished();
 
 private:
     int queryPlateInfo(std::string ownerOrPlate, std::string key, PlateModel &retPlate);
@@ -41,6 +44,10 @@ private:
     void connectDB();
     int reconnectDB();
     int updateDB(std::string sql_str);
+
+private slots:
+    void uploadFinished(std::vector<PlateModel> retVac);
+
 };
 
 

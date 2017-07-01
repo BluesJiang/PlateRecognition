@@ -160,6 +160,10 @@ void RecognizeTab::upload() {
     }
 
     dataManager.uploadPlate(plateModels);
-    emit endUpload();
 
+
+}
+
+void RecognizeTab::uploadFinished() {
+    emit endUpload();
 }
