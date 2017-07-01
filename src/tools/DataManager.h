@@ -19,6 +19,7 @@ class DataManager {
 public:
     DataManager();
     std::string queryPassword(std::string username);
+    int updatePassword(std::string username, std::string newPassword);
     int queryPlateInfoWithOwner(std::string owner, PlateModel& retPlate);
     int queryPlateInfoWithOwner(std::string owner, std::vector<PlateModel>& retVec);
     int queryPlateInfoWithPlate(std::string plate, PlateModel& retPlate);
