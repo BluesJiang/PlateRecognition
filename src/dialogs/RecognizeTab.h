@@ -27,6 +27,8 @@ class RecognizeTab : public QWidget {
     QFileInfoList fileInfoList;
     vector<easypr::CPlate> plates;
     QString filePath;
+    PlateRecognisor recognisor;
+    DataManager dataManager;
 public:
     explicit RecognizeTab(QWidget* parent = 0);
     ~RecognizeTab();
@@ -42,6 +44,8 @@ signals:
     void endRecognize();
     void startUpload();
     void endUpload();
+    void handleResult(std::vector<easypr::CPlate> retVec);
+
 };
 
 

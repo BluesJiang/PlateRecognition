@@ -27,6 +27,7 @@ RecognizeTab::RecognizeTab(QWidget *parent) {
 
 
     connect(ui->tableView, SIGNAL(clicked(QModelIndex)), this,SLOT(itemClicked(QModelIndex)));
+    connect(&recognisor, SIGNAL(resultReady(std::vector<easypr::CPlate>)), this, SLOT(handleResult(std::vector<easypr::CPlate>)));
 }
 
 RecognizeTab::~RecognizeTab() {
@@ -96,13 +97,18 @@ void RecognizeTab::import() {
 void RecognizeTab::recognize() {
     emit startRecognize();
 
-    PlateRecognisor recognisor;
-    recognisor.recognizePlateInDirectory(fileInfoList, plates);
-    DataManager dataManager;
 
-    for(int i = 0; i < fileInfoList.size(); i++)
+    recognisor.recognizePlateInDirectory(fileInfoList);
+
+
+
+}
+
+void RecognizeTab::handleResult(std::vector<easypr::CPlate> retVec) {
+    for(int i = 0; i < retVec.size(); i++)
     {
-        QString tempString = QString::fromStdString(plates[i].getPlateStr());
+
+        QString tempString = QString::fromStdString(retVec[i].getPlateStr());
         tempString = tempString.split(":").last();
         QStandardItem * plateItem = new QStandardItem(tempString);
         standardItemModel->setItem(i,1,plateItem);
@@ -110,7 +116,7 @@ void RecognizeTab::recognize() {
         dataManager.queryPlateInfoWithPlate(tempString.toStdString(),plateModel);
         standardItemModel->setItem(i,2, new QStandardItem(QString::fromStdString(plateModel.owner)));
 
-        Mat plateMat = plates[i].getPlateMat();
+        Mat plateMat = retVec[i].getPlateMat();
         cvtColor(plateMat,plateMat,CV_BGR2RGB);
 
         QStandardItem * item = new QStandardItem();

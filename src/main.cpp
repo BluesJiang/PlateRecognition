@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include <QApplication>
 #include "MainWindow.h"
 #include "LoginDialog.h"
@@ -10,7 +11,11 @@
 #include "tools/QiniuManager.h"
 #include "RecognizeTab.h"
 #include "SearchTab.h"
-using namespace std;
+#include "easypr.h"
+
+typedef std::vector<easypr::CPlate> PlateVector;
+
+
 
 int main(int argc, char* argv[]) {
 
@@ -23,10 +28,18 @@ int main(int argc, char* argv[]) {
     MainWindow* mainWindow = new MainWindow();
 //    SearchWindow * searchWindow = new SearchWindow();
     mainWindow->show();
+
 //    if(login->exec() == QDialog::Accepted)
 //    {
 //        mainWindow->show();
 //    }
+
+    qRegisterMetaType<std::vector<easypr::CPlate>>("std::vector<easypr::CPlate>");
+
+//    RecognizeTab regTab;
+//    SearchTab seaTab;
+//    regTab.show();
+//    seaTab.show();
 
     return app->exec();
 }

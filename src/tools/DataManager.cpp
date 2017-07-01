@@ -20,7 +20,6 @@ DataManager::~DataManager() {
 std::string DataManager::queryPassword(std::string username) {
     connectDB();
     std::string sql_query = "select password from User where username=\"" + username + "\"";
-    std::cout << sql_query << std::endl;
 
     int res = mysql_query(&mysql, sql_query.c_str());
     if (!res) {
@@ -33,6 +32,12 @@ std::string DataManager::queryPassword(std::string username) {
         }
     }
     return "";
+}
+
+int DataManager::updatePassword(std::string username, std::string newPassword) {
+    connectDB();
+    std::string sql_query = "update User set password='" + newPassword + "' where username=\"" + username + "\"";
+    return mysql_query(&mysql, sql_query.c_str());
 }
 
 int DataManager::queryPlateInfoWithOwner(std::string owner, PlateModel &retPlate) {
@@ -141,15 +146,16 @@ int DataManager::queryPlateInfo(std::string ownerOrPlate, std::vector<std::strin
 }
 
 int DataManager::uploadPlate(const PlateModel &plate) {
-    PlateModel tmpPlate;
+    PlateModel tmpPlate, retPlate;
+    qiniuManager->uploadFile(plate, retPlate);
     int res = queryPlateInfoWithPlate(plate.plate, tmpPlate);
     std::string sql_query;
     if (!res) {
         sql_query = "update PlateInfo set images='";
         if (tmpPlate.url != "") {
-            tmpPlate.url += ";" + plate.url;
+            tmpPlate.url += ";" + retPlate.url;
         } else {
-            tmpPlate.url = plate.url;
+            tmpPlate.url = retPlate.url;
         }
         sql_query += tmpPlate.url;
         sql_query += "' where plate="+tmpPlate.plate;
@@ -201,6 +207,8 @@ int DataManager::updateDB(std::string sql_str) {
     }
     return -1;
 }
+
+
 
 
 
