@@ -15,6 +15,7 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QWidget>
 
@@ -26,12 +27,13 @@ public:
     QAction *actionExit;
     QWidget *centralwidget;
     QTabWidget *tabWidget;
+    QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1200, 595);
+        MainWindow->resize(1200, 615);
         actionExit = new QAction(MainWindow);
         actionExit->setObjectName(QStringLiteral("actionExit"));
         centralwidget = new QWidget(MainWindow);
@@ -45,6 +47,9 @@ public:
         sizePolicy.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
         tabWidget->setSizePolicy(sizePolicy);
         MainWindow->setCentralWidget(centralwidget);
+        statusBar = new QStatusBar(MainWindow);
+        statusBar->setObjectName(QStringLiteral("statusBar"));
+        MainWindow->setStatusBar(statusBar);
 
         retranslateUi(MainWindow);
 

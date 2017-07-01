@@ -17,9 +17,9 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>30</y>
+     <y>20</y>
      <width>421</width>
-     <height>101</height>
+     <height>151</height>
     </rect>
    </property>
    <property name="text">
@@ -112,6 +112,9 @@
      <height>41</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
    <property name="text">
     <string>登录</string>
    </property>
@@ -125,11 +128,51 @@
      <height>41</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
    <property name="text">
     <string>退出</string>
    </property>
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>loginButton</sender>
+   <signal>clicked()</signal>
+   <receiver>LoginDialog</receiver>
+   <slot>userIdentify()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>166</x>
+     <y>310</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>236</x>
+     <y>182</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>exitButton</sender>
+   <signal>clicked()</signal>
+   <receiver>LoginDialog</receiver>
+   <slot>exit()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>306</x>
+     <y>310</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>236</x>
+     <y>182</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>userIdentify()</slot>
+  <slot>exit()</slot>
+ </slots>
 </ui>

@@ -39,7 +39,7 @@ public:
         LoginDialog->resize(473, 366);
         label = new QLabel(LoginDialog);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(30, 30, 421, 101));
+        label->setGeometry(QRect(30, 20, 421, 151));
         lineEdit = new QLineEdit(LoginDialog);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
         lineEdit->setGeometry(QRect(160, 190, 201, 31));
@@ -66,11 +66,15 @@ public:
         loginButton = new QPushButton(LoginDialog);
         loginButton->setObjectName(QStringLiteral("loginButton"));
         loginButton->setGeometry(QRect(110, 290, 113, 41));
+        loginButton->setFocusPolicy(Qt::NoFocus);
         exitButton = new QPushButton(LoginDialog);
         exitButton->setObjectName(QStringLiteral("exitButton"));
         exitButton->setGeometry(QRect(250, 290, 113, 41));
+        exitButton->setFocusPolicy(Qt::NoFocus);
 
         retranslateUi(LoginDialog);
+        QObject::connect(loginButton, SIGNAL(clicked()), LoginDialog, SLOT(userIdentify()));
+        QObject::connect(exitButton, SIGNAL(clicked()), LoginDialog, SLOT(exit()));
 
         QMetaObject::connectSlotsByName(LoginDialog);
     } // setupUi

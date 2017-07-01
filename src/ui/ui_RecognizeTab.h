@@ -40,10 +40,13 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(RecognizeTab->sizePolicy().hasHeightForWidth());
         RecognizeTab->setSizePolicy(sizePolicy);
+        QFont font;
+        font.setPointSize(20);
+        font.setFamily("华文黑体");
         label = new QLabel(RecognizeTab);
+        label->setFont(font);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(50, 50, 285, 410));
-        label->setStyleSheet(QStringLiteral(""));
         tableView = new QTableView(RecognizeTab);
         tableView->setObjectName(QStringLiteral("tableView"));
         tableView->setGeometry(QRect(410, 50, 600, 410));
@@ -60,6 +63,7 @@ public:
         retranslateUi(RecognizeTab);
         QObject::connect(importButton, SIGNAL(clicked()), RecognizeTab, SLOT(import()));
         QObject::connect(recognizeButton, SIGNAL(clicked()), RecognizeTab, SLOT(recognize()));
+        QObject::connect(uploadButton, SIGNAL(clicked()), RecognizeTab, SLOT(upload()));
 
         QMetaObject::connectSlotsByName(RecognizeTab);
     } // setupUi

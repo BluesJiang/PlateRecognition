@@ -177,7 +177,7 @@ int DataManager::uploadPlate(const std::vector<PlateModel> &plates) {
                 tmpPlate.url = plate.url;
             }
             sql_query += tmpPlate.url;
-            sql_query += "' where plate="+tmpPlate.plate;
+            sql_query += "' where plate='"+tmpPlate.plate+"'";
             if(updateDB(sql_query) == 0) {
                 count++;
             }

@@ -119,9 +119,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>uploadButton</sender>
+   <signal>clicked()</signal>
+   <receiver>RecognizeTab</receiver>
+   <slot>upload()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>665</x>
+     <y>35</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>524</x>
+     <y>249</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>import()</slot>
   <slot>recognize()</slot>
+  <slot>upload()</slot>
  </slots>
 </ui>

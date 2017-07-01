@@ -15,14 +15,19 @@ SearchTab::SearchTab(QWidget *parent) {
     standardItemModel->setHorizontalHeaderLabels(header);
     ui->tableView->verticalHeader()->hide();
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+
     ui->listWidget->setIconSize(QSize(100,100));
     ui->listWidget->setResizeMode(QListView::Adjust);
     ui->listWidget->setViewMode(QListView::IconMode);
     ui->listWidget->setMovement(QListView::Static);
-    ui->listWidget->setSpacing(8);
+    ui->listWidget->setSpacing(25);
+    ui->listWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->searchButton->setEnabled(false);
     networkAccessManager = new QNetworkAccessManager(this);
+    ui->searchButton->setShortcut(Qt::Key_Enter);
+    connect(ui->lineEdit, SIGNAL(returnPressed()), ui->searchButton, SIGNAL(clicked()), Qt::UniqueConnection);
     connect(networkAccessManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(replyFinished(QNetworkReply *)));
+
 }
 
 SearchTab::~SearchTab() {
@@ -36,6 +41,8 @@ void SearchTab::searchAndShow() {
     imageUrls.clear();
     standardItemModel->removeRows(0,standardItemModel->rowCount());
     ui->listWidget->clear();
+    ui->label->setText("车辆图片");
+    pixmaps.clear();
     DataManager manager;
     PlateModel plateModel;
     std::string plate, owner;
@@ -52,6 +59,7 @@ void SearchTab::searchAndShow() {
         manager.queryPlateInfoWithOwner(owner, plateModel);
     }
     imageUrls = QString::fromStdString(plateModel.url).split(";");
+
     int imageCount = imageUrls.size();
 
 
@@ -71,6 +79,11 @@ void SearchTab::searchAndShow() {
     //standardItemModel->setItem(0,0, new QStandardItem(QString::fromStdString(plateModel.plate)));
     standardItemModel->setItem(0,1, new QStandardItem(QString::fromStdString(plateModel.owner)));
     ui->tableView->setModel(standardItemModel);
+
+
+        standardItemModel->item(0,0)->setTextAlignment(Qt::AlignCenter);
+        standardItemModel->item(0,1)->setTextAlignment(Qt::AlignCenter);
+
     int columnWidth = ui->tableView->width() / 2;
     ui->tableView->setColumnWidth(0, columnWidth);
     ui->tableView->setColumnWidth(1, columnWidth);
@@ -88,13 +101,21 @@ void SearchTab::enableSearchButton() {
     ui->searchButton->setEnabled(true);
 }
 
-void SearchTab::replyFinished(QNetworkReply *) {
+void SearchTab::replyFinished(QNetworkReply * reply) {
+    if(imageUrls[0].compare("") == 0)
+    {
+        return ;
+    }
+
     QPixmap imagePixmap;
+
     imagePixmap.loadFromData(reply->readAll());
+
     pixmaps.push_back(imagePixmap);
-    imagePixmap = imagePixmap.scaled(QSize(100, 90), Qt::KeepAspectRatio);
+    imagePixmap = imagePixmap.scaled(QSize(100, 100), Qt::KeepAspectRatio);
     QListWidgetItem * item = new QListWidgetItem(QIcon(imagePixmap), QString::number(count+1, 10));
     item->setSizeHint(QSize(100,110));
     item->setTextAlignment(Qt::AlignHCenter|Qt::AlignBottom);
+
     ui->listWidget->insertItem(count++, item);
 }

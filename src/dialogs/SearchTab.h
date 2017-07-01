@@ -29,7 +29,6 @@ class SearchTab: public QWidget {
     QStringList imageUrls;
     QNetworkRequest request;
     QNetworkAccessManager * networkAccessManager;
-    QNetworkReply * reply = NULL;
     int count = 0;
 public:
     explicit SearchTab(QWidget* parent = 0);

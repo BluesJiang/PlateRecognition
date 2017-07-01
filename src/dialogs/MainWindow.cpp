@@ -14,6 +14,10 @@ MainWindow::MainWindow(QWidget *parent) {
     searchTab = new SearchTab();
     ui->tabWidget->addTab(recognizeTab, "车牌识别");
     ui->tabWidget->addTab(searchTab, "车牌检索");
+    connect(recognizeTab, SIGNAL(startRecognize()), this, SLOT(startRecognizeStatus()), Qt::DirectConnection);
+    connect(recognizeTab, SIGNAL(endRecognize()), this, SLOT(endRecognizeStatus()));
+    connect(recognizeTab, SIGNAL(startUpload()), this, SLOT(startUploadStatus()));
+    connect(recognizeTab, SIGNAL(endUpload()), this, SLOT(endUploadStatus()));
 }
 
 MainWindow::~MainWindow() {
@@ -23,4 +27,21 @@ MainWindow::~MainWindow() {
 }
 
 
+void MainWindow::startRecognizeStatus() {
+    ui->statusBar->addWidget(label);
+    ui->statusBar->update();
+}
+
+void MainWindow::endRecognizeStatus() {
+    label->setText("识别完成");
+
+}
+
+void MainWindow::startUploadStatus() {
+   label->setText("正在上传...");
+}
+
+void MainWindow::endUploadStatus() {
+    label->setText("上传完成");
+}
 

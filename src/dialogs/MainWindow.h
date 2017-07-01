@@ -27,9 +27,15 @@ class MainWindow: public QMainWindow {
     Ui::MainWindow* ui = NULL;
     RecognizeTab* recognizeTab;
     SearchTab* searchTab;
+    QLabel * label = new QLabel("正在识别");
 public:
     explicit MainWindow(QWidget* parent = 0);
     ~ MainWindow();
+private slots:
+    void startRecognizeStatus();
+    void endRecognizeStatus();
+    void startUploadStatus();
+    void endUploadStatus();
 
 
 

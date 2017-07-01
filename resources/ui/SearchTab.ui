@@ -23,7 +23,10 @@
     </rect>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QListWidget" name="listWidget">
@@ -31,7 +34,7 @@
     <rect>
      <x>40</x>
      <y>40</y>
-     <width>151</width>
+     <width>150</width>
      <height>421</height>
     </rect>
    </property>

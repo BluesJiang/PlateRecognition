@@ -11,11 +11,14 @@
 #include <QModelIndex>
 #include <QFileDialog>
 #include <QDir>
+#include <QMessageBox>
+#include <QFrame>
 #include <vector>
 #include <easypr.h>
+#include "./model/PlateModel.h"
 #include "PlateRecognisor.h"
 #include "ui_RecognizeTab.h"
-
+#include "DataManager.h"
 class RecognizeTab : public QWidget {
     Q_OBJECT
     Ui::RecognizeTab* ui = NULL;
@@ -33,8 +36,12 @@ private slots:
     void itemClicked(QModelIndex index);
     void import();
     void recognize();
-
-
+    void upload();
+signals:
+    void startRecognize();
+    void endRecognize();
+    void startUpload();
+    void endUpload();
 };
 
 

@@ -19,17 +19,14 @@ int main(int argc, char* argv[]) {
 
 
 
-//    Dialog * login = new Dialog();
+    LoginDialog * login = new LoginDialog();
     MainWindow* mainWindow = new MainWindow();
 //    SearchWindow * searchWindow = new SearchWindow();
     mainWindow->show();
-
-
-//    RecognizeTab regTab;
-//    SearchTab seaTab;
-//    regTab.show();
-//    seaTab.show();
-
+//    if(login->exec() == QDialog::Accepted)
+//    {
+//        mainWindow->show();
+//    }
 
     return app->exec();
 }
