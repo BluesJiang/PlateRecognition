@@ -39,12 +39,13 @@ private slots:
     void import();
     void recognize();
     void upload();
+    void handleResult(std::vector<easypr::CPlate> retVec);
 signals:
     void startRecognize();
     void endRecognize();
     void startUpload();
     void endUpload();
-    void handleResult(std::vector<easypr::CPlate> retVec);
+
 
 };
 
