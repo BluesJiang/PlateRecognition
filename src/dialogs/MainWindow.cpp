@@ -12,6 +12,8 @@ MainWindow::MainWindow(QWidget *parent) {
     ui->setupUi(this);
     recognizeTab = new RecognizeTab();
     searchTab = new SearchTab();
+    label = new QLabel();
+    ui->statusBar->addWidget(label);
     ui->tabWidget->addTab(recognizeTab, "车牌识别");
     ui->tabWidget->addTab(searchTab, "车牌检索");
     connect(recognizeTab, SIGNAL(startRecognize()), this, SLOT(startRecognizeStatus()), Qt::DirectConnection);
@@ -28,8 +30,8 @@ MainWindow::~MainWindow() {
 
 
 void MainWindow::startRecognizeStatus() {
-    ui->statusBar->addWidget(label);
-    ui->statusBar->update();
+    label->setText("正在识别...");
+
 }
 
 void MainWindow::endRecognizeStatus() {

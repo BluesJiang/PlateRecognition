@@ -43,6 +43,7 @@ void RecognizeTab::itemClicked(QModelIndex index) {
 }
 
 void RecognizeTab::import() {
+    ui->importButton->setEnabled(false);
     plates.clear();
     images.clear();
     standardItemModel->removeRows(0,standardItemModel->rowCount());
@@ -90,13 +91,13 @@ void RecognizeTab::import() {
 
 
     }
-
+    ui->importButton->setEnabled(true);
     ui->recognizeButton->setEnabled(true);
 }
 
 void RecognizeTab::recognize() {
     emit startRecognize();
-
+    ui->recognizeButton->setEnabled(false);
 
     recognisor.recognizePlateInDirectory(fileInfoList);
 
@@ -114,6 +115,7 @@ void RecognizeTab::handleResult(std::vector<easypr::CPlate> retVec) {
         standardItemModel->setItem(i,1,plateItem);
         PlateModel plateModel;
         dataManager.queryPlateInfoWithPlate(tempString.toStdString(),plateModel);
+
         standardItemModel->setItem(i,2, new QStandardItem(QString::fromStdString(plateModel.owner)));
 
         Mat plateMat = retVec[i].getPlateMat();
@@ -131,12 +133,22 @@ void RecognizeTab::handleResult(std::vector<easypr::CPlate> retVec) {
     }
 
     emit endRecognize();
-
-    QMessageBox::information(this, "识别完成", "识别已完成，请检查和完善车牌和车主信息，再点击上传");
+    ui->recognizeButton->setEnabled(true);
+    //QMessageBox::information(this, "识别完成", "识别已完成，请检查和完善车牌和车主信息，再点击上传");
 }
 
 
 void RecognizeTab::upload() {
+    QMessageBox messageBox(QMessageBox::Warning,"确认上传", "请确认和完善车牌号和车主姓名的信息，是否确认上传？");
+    ui->uploadButton->setEnabled(false);
+    messageBox.addButton(QMessageBox::Ok);
+    messageBox.addButton(QMessageBox::Cancel);
+    messageBox.setButtonText(QMessageBox::Ok, "确认");
+    messageBox.setButtonText(QMessageBox::Cancel, "取消");
+    if(messageBox.exec() == QMessageBox::Cancel) {
+        ui->uploadButton->setEnabled(true);
+        return;
+    }
     emit startUpload();
     DataManager dataManager;
     vector<std::string> uploadPlates;
@@ -160,6 +172,9 @@ void RecognizeTab::upload() {
     }
 
     dataManager.uploadPlate(plateModels);
+
+    ui->uploadButton->setEnabled(true);
+    emit endUpload();
 
 
 }

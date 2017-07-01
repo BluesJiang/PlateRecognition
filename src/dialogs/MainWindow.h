@@ -27,7 +27,7 @@ class MainWindow: public QMainWindow {
     Ui::MainWindow* ui = NULL;
     RecognizeTab* recognizeTab;
     SearchTab* searchTab;
-    QLabel * label = new QLabel("正在识别");
+    QLabel * label = NULL;
 public:
     explicit MainWindow(QWidget* parent = 0);
     ~ MainWindow();
