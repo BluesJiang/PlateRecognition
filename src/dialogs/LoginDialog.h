@@ -17,7 +17,7 @@ class LoginDialog: public QDialog {
     Ui::LoginDialog * ui = NULL;
 public:
     explicit LoginDialog(QWidget* parent = 0);
-    ~ Dialog();
+    ~ LoginDialog();
 
 protected:
 private slots:

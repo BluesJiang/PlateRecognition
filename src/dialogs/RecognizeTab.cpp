@@ -85,13 +85,18 @@ void RecognizeTab::import() {
 }
 
 void RecognizeTab::recognize() {
-    PlateRecognisor recognisor;
-    recognisor.recognizePlateInDirectory(fileInfoList, plates);
 
-    for(int i = 0; i < fileInfoList.size(); i++)
+    recognisor.recognizePlateInDirectory(fileInfoList, plates);
+    connect(&recognisor, SIGNAL(resultReady(std::vector<easypr::CPlate>)), this, SLOT(handleResult(std::vector<easypr::CPlate>)));
+
+
+}
+
+void RecognizeTab::handleResult(std::vector<easypr::CPlate> retVec) {
+    for(int i = 0; i < retVec.size(); i++)
     {
-        standardItemModel->setItem(i,1,new QStandardItem(QString::fromStdString(plates[i].getPlateStr())));
-        Mat plateMat = plates[i].getPlateMat();
+        standardItemModel->setItem(i,1,new QStandardItem(QString::fromStdString(retVec[i].getPlateStr())));
+        Mat plateMat = retVec[i].getPlateMat();
         QStandardItem * item = new QStandardItem();
         item->setData(QVariant(QPixmap::fromImage(QImage(plateMat.data, plateMat.cols, plateMat.rows, plateMat.step, QImage::Format_RGB888))), Qt::DecorationRole);
 

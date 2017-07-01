@@ -32,6 +32,7 @@ aux_source_directory(src/dialogs SOURCE_DIR)
 aux_source_directory(src/ui SOURCE_DIR)
 aux_source_directory(src/widgets SOURCE_DIR)
 aux_source_directory(src/model SOURCE_DIR)
+
 set(LOCAL_LIBS mysqlcppconn m mysqlclient z libeasypr.a libqiniu.dylib ${OpenCV_LIBS} Qt5::Widgets Qt5::Core Qt5::Network thirdparty)
 
 add_executable(${PROJECT_NAME} ${SOURCE_DIR} src/main.cpp)

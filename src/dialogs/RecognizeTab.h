@@ -24,6 +24,7 @@ class RecognizeTab : public QWidget {
     QFileInfoList fileInfoList;
     vector<easypr::CPlate> plates;
     QString filePath;
+    PlateRecognisor recognisor;
 public:
     explicit RecognizeTab(QWidget* parent = 0);
     ~RecognizeTab();
@@ -33,6 +34,7 @@ private slots:
     void itemClicked(QModelIndex index);
     void import();
     void recognize();
+    void handleResult(std::vector<easypr::CPlate> retVec);
 
 
 };

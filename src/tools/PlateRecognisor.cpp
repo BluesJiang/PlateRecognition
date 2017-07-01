@@ -3,10 +3,49 @@
 //
 
 #include "PlateRecognisor.h"
-#include <QTimer>
+#include <QThread>
+
 
 
 using namespace easypr;
+
+class RecognizeWorker : public QThread {
+    Q_OBJECT
+    QFileInfoList & infoList;
+public:
+    explicit RecognizeWorker(QFileInfoList & infoList, QObject *parent = 0)
+    : QThread(parent), infoList(infoList)
+    {
+
+    }
+protected:
+    virtual void run() Q_DECL_OVERRIDE {
+        emit started();
+        CPlateRecognize pr;
+        pr.setResultShow(false);
+        pr.setDetectType(PR_DETECT_CMSER|PR_DETECT_SOBEL|PR_DETECT_SOBEL);
+        pr.setLifemode(true);
+        pr.setMaxPlates(1);
+        std::vector<CPlate> resultVec;
+        for (auto fileInfo : infoList) {
+            std::vector<CPlate> plateVec;
+            cv::Mat img = cv::imread(fileInfo.absoluteFilePath().toStdString().c_str());
+            int result = pr.plateRecognize(img, plateVec);
+            if (result == 0 && plateVec.size() == 1) {
+                CPlate plate = plateVec.at(0);
+                resultVec.push_back(plate);
+            }
+        }
+        emit resultReady(resultVec);
+
+    }
+
+public:
+signals:
+    void started();
+    void resultReady(std::vector<easypr::CPlate>);
+};
+
 
 PlateRecognisor::PlateRecognisor() {
     pr.setResultShow(false);
@@ -28,12 +67,12 @@ void PlateRecognisor::recognizePlateInDirectory(const QString& path, std::vector
 }
 
 void PlateRecognisor::recognizePlateInDirectory(QFileInfoList & infoList, std::vector<CPlate>& plates) {
-    for(int i = 0; i < infoList.size(); i++)
-    {
-        CPlate plate;
-        recognizePlateInFile(infoList[i].filePath(), plate);
-        plates.push_back(plate);
-    }
+
+    RecognizeWorker* worker = new RecognizeWorker(infoList, this);
+    connect(worker, SIGNAL(resultReady(std::vector<easypr::CPlate>)), this, SLOT(handleResult(std::vector<easypr::CPlate>)));
+    connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));
+    worker->start();
+
 }
 
 void PlateRecognisor::recognizePlateInFile(QString path, CPlate& plate) {
@@ -48,7 +87,7 @@ void PlateRecognisor::recognizePlateInFile(QString path, CPlate& plate) {
 
 QString PlateRecognisor::recognizePlateInFile(QString path) {
 
-    std::vector<CPlate> plateVec;
+    std::vector<easypr::CPlate> plateVec;
     cv::Mat img = cv::imread(path.toStdString().c_str());
     int result = pr.plateRecognize(img, plateVec);
     QString plateStr;
@@ -59,8 +98,11 @@ QString PlateRecognisor::recognizePlateInFile(QString path) {
 
 }
 
+void PlateRecognisor::handleResult(vector<CPlate> retVec) {
+    emit resultReady(retVec);
+}
 
 
-
+#include "PlateRecognisor.moc"
 
 
