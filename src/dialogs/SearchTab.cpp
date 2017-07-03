@@ -15,7 +15,7 @@ SearchTab::SearchTab(QWidget *parent) {
     standardItemModel->setHorizontalHeaderLabels(header);
     ui->tableView->verticalHeader()->hide();
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-
+    ui->label->setText("车辆图片");
     ui->listWidget->setIconSize(QSize(100,100));
     ui->listWidget->setResizeMode(QListView::Adjust);
     ui->listWidget->setViewMode(QListView::IconMode);
@@ -25,8 +25,12 @@ SearchTab::SearchTab(QWidget *parent) {
     ui->searchButton->setEnabled(false);
     networkAccessManager = new QNetworkAccessManager(this);
     ui->searchButton->setShortcut(Qt::Key_Enter);
+    //stylesheets
+    ui->label->setStyleSheet("border-radius:3px;font-size:20px;color:#cfcfcf;border: 1px solid #cfcfcf;background-color:#ffffff");
+
     connect(ui->lineEdit, SIGNAL(returnPressed()), ui->searchButton, SIGNAL(clicked()), Qt::UniqueConnection);
     connect(networkAccessManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(replyFinished(QNetworkReply *)));
+
 
 }
 
@@ -92,7 +96,7 @@ void SearchTab::searchAndShow() {
 void SearchTab::display(QListWidgetItem * item) {
     int index = item->text().toInt() - 1;
     QPixmap tempPixmap = pixmaps[index];
-    tempPixmap = tempPixmap.scaled(QSize(481, 311), Qt::KeepAspectRatio);
+    tempPixmap = tempPixmap.scaled(QSize(451, 281), Qt::KeepAspectRatio);
     ui->label->setPixmap(tempPixmap);
     ui->label->setAlignment(Qt::AlignCenter);
 }

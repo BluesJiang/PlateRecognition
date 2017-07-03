@@ -9,6 +9,7 @@ RecognizeTab::RecognizeTab(QWidget *parent) {
     ui = new Ui::RecognizeTab();
     ui->setupUi(this);
     ui->recognizeButton->setEnabled(false);
+    ui->uploadButton->setEnabled(false);
     standardItemModel = new QStandardItemModel(this);
     QStringList header;
     header.append("图片名");
@@ -22,8 +23,7 @@ RecognizeTab::RecognizeTab(QWidget *parent) {
     ui->tableView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->label->setText("车辆图片");
     ui->label->setAlignment(Qt::AlignCenter);
-    ui->label->setFrameShape(QFrame::Box);
-
+    ui->label->setStyleSheet("font-size:20px;color:#cfcfcf;border: 1px solid #cfcfcf;background-color:#ffffff");
 
 
     connect(ui->tableView, SIGNAL(clicked(QModelIndex)), this,SLOT(itemClicked(QModelIndex)));
@@ -38,18 +38,21 @@ RecognizeTab::~RecognizeTab() {
 
 void RecognizeTab::itemClicked(QModelIndex index) {
     QPixmap tempPix = QPixmap::fromImage(*images[index.row()]);
-    tempPix = tempPix.scaled(QSize(461,451),Qt::KeepAspectRatio);
+    tempPix = tempPix.scaled(QSize(391,380),Qt::KeepAspectRatio);
     ui->label->setPixmap(tempPix);
     ui->label->setAlignment(Qt::AlignCenter);
 }
 
 void RecognizeTab::import() {
-    ui->importButton->setEnabled(false);
+
+
+    filePath = QFileDialog::getExistingDirectory(this,"请选择导入路径...","./");
+    if(filePath.compare("") == 0)   return;
+
     plates.clear();
     images.clear();
     standardItemModel->removeRows(0,standardItemModel->rowCount());
-
-    filePath = QFileDialog::getExistingDirectory(this,"请选择导入路径...","./");
+    ui->importButton->setEnabled(false);
     QStringList filters;
     filters<<QString("*.jpeg")<<QString("*.jpg")<<QString("*.png");
 
@@ -65,10 +68,7 @@ void RecognizeTab::import() {
         qdir.setFilter(QDir::Files | QDir::NoSymLinks);
         qdir.setNameFilters(filters);
         fileInfoList = qdir.entryInfoList();
-
-        int fileCount = fileInfoList.size();
-
-        for(int i = 0; i < fileCount; i++)
+        for(int i = 0; i < fileInfoList.size(); i++)
         {
             QStandardItem * tempItem = new QStandardItem(fileInfoList[i].fileName());
             QImage * qImage = new QImage;
@@ -87,7 +87,7 @@ void RecognizeTab::import() {
         ui->tableView->setColumnWidth(2,2*columnWidth/3);
 
         ui->tableView->setColumnWidth(3,columnWidth-1);
-        for(int i = 0; i < fileCount; i++)  ui->tableView->setRowHeight(i,40);
+        for(int i = 0; i < fileInfoList.size(); i++)  ui->tableView->setRowHeight(i,40);
         ui->label->show();
 
 
@@ -135,7 +135,7 @@ void RecognizeTab::handleResult(std::vector<easypr::CPlate> retVec) {
 
     emit endRecognize();
     ui->recognizeButton->setEnabled(true);
-    //QMessageBox::information(this, "识别完成", "识别已完成，请检查和完善车牌和车主信息，再点击上传");
+    ui->uploadButton->setEnabled(true);
 }
 
 
@@ -152,12 +152,12 @@ void RecognizeTab::upload() {
     }
     emit startUpload();
 
-    vector<std::string> uploadPlates;
-    for(int i = 0; i < fileInfoList.size(); i++) {
-        uploadPlates.push_back(QString::fromStdString(plates[i].getPlateStr()).split(":").last().toStdString());
-    }
-    vector<PlateModel> returnVec;
-    dataManager.queryPlateInfoWithPlates(uploadPlates, returnVec);
+//    vector<std::string> uploadPlates;
+//    cout<<plates[0].getPlateStr()<<endl;
+//    for(int i = 0; i < fileInfoList.size(); i++) {
+//        uploadPlates.push_back(QString::fromStdString(plates[i].getPlateStr()).split(":").last().toStdString());
+//    }
+//    cout<<"aaa"<<endl;
 
     vector<PlateModel> plateModels;
     PlateModel plateModel;

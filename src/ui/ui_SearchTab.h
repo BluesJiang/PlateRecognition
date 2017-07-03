@@ -41,28 +41,25 @@ public:
         if (SearchTab->objectName().isEmpty())
             SearchTab->setObjectName(QStringLiteral("SearchTab"));
         SearchTab->resize(1050, 500);
-        QFont font;
-        font.setPointSize(20);
-        font.setFamily("华文黑体");
-
         label = new QLabel(SearchTab);
-        label->setFont(font);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(220, 40, 441, 421));
-        label->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        label->setStyleSheet("border: 1px solid gray");
+        label->setGeometry(QRect(230, 40, 441, 421));
+        label->setAlignment(Qt::AlignCenter);
         listWidget = new QListWidget(SearchTab);
         listWidget->setObjectName(QStringLiteral("listWidget"));
         listWidget->setGeometry(QRect(40, 40, 150, 421));
+        listWidget->setFocusPolicy(Qt::NoFocus);
         tableView = new QTableView(SearchTab);
         tableView->setObjectName(QStringLiteral("tableView"));
         tableView->setGeometry(QRect(710, 80, 301, 381));
         lineEdit = new QLineEdit(SearchTab);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(710, 40, 231, 31));
+        lineEdit->setGeometry(QRect(710, 40, 241, 31));
+        lineEdit->setFocusPolicy(Qt::ClickFocus);
         searchButton = new QPushButton(SearchTab);
         searchButton->setObjectName(QStringLiteral("searchButton"));
-        searchButton->setGeometry(QRect(950, 36, 61, 42));
+        searchButton->setGeometry(QRect(955, 36, 61, 42));
+        searchButton->setStyleSheet(QStringLiteral(""));
         plateRadioButton = new QRadioButton(SearchTab);
         buttonGroup = new QButtonGroup(SearchTab);
         buttonGroup->setObjectName(QStringLiteral("buttonGroup"));
@@ -72,7 +69,7 @@ public:
         nameRadioButton = new QRadioButton(SearchTab);
         buttonGroup->addButton(nameRadioButton);
         nameRadioButton->setObjectName(QStringLiteral("nameRadioButton"));
-        nameRadioButton->setGeometry(QRect(880, 10, 131, 20));
+        nameRadioButton->setGeometry(QRect(830, 10, 131, 20));
 
         retranslateUi(SearchTab);
         QObject::connect(searchButton, SIGNAL(clicked()), SearchTab, SLOT(searchAndShow()));
@@ -85,7 +82,7 @@ public:
     void retranslateUi(QWidget *SearchTab)
     {
         SearchTab->setWindowTitle(QApplication::translate("SearchTab", "Form", Q_NULLPTR));
-        label->setText(QApplication::translate("SearchTab", "车辆图片", Q_NULLPTR));
+        label->setText(QString());
         searchButton->setText(QApplication::translate("SearchTab", "\346\237\245\350\257\242", Q_NULLPTR));
         plateRadioButton->setText(QApplication::translate("SearchTab", "\344\275\277\347\224\250\350\275\246\347\211\214\345\217\267\346\237\245\350\257\242", Q_NULLPTR));
         nameRadioButton->setText(QApplication::translate("SearchTab", "\344\275\277\347\224\250\350\275\246\344\270\273\345\247\223\345\220\215\346\237\245\350\257\242", Q_NULLPTR));

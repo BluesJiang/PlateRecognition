@@ -26,7 +26,6 @@ find_package(Qt5Network REQUIRED)
 
 # sub directories
 add_subdirectory(thirdparty)
-
 aux_source_directory(src/tools SOURCE_DIR)
 aux_source_directory(src/dialogs SOURCE_DIR)
 aux_source_directory(src/ui SOURCE_DIR)

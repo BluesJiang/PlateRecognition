@@ -3,7 +3,6 @@
 #include <QApplication>
 #include "MainWindow.h"
 #include "LoginDialog.h"
-#include "SearchWindow.h"
 #include "qiniu/io.h"
 #include "qiniu/rs.h"
 #include "qiniu/base.h"

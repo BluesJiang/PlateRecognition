@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) {
     ui->statusBar->addWidget(label);
     ui->tabWidget->addTab(recognizeTab, "车牌识别");
     ui->tabWidget->addTab(searchTab, "车牌检索");
+    this->setWindowFlags(this->windowFlags() & ~Qt::WindowMaximizeButtonHint);
     connect(recognizeTab, SIGNAL(startRecognize()), this, SLOT(startRecognizeStatus()), Qt::DirectConnection);
     connect(recognizeTab, SIGNAL(endRecognize()), this, SLOT(endRecognizeStatus()));
     connect(recognizeTab, SIGNAL(startUpload()), this, SLOT(startUploadStatus()));

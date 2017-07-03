@@ -22,9 +22,9 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>40</x>
      <y>50</y>
-     <width>285</width>
+     <width>421</width>
      <height>410</height>
     </rect>
    </property>
@@ -38,9 +38,9 @@
   <widget class="QTableView" name="tableView">
    <property name="geometry">
     <rect>
-     <x>410</x>
+     <x>489</x>
      <y>50</y>
-     <width>600</width>
+     <width>521</width>
      <height>410</height>
     </rect>
    </property>
@@ -48,7 +48,7 @@
   <widget class="QPushButton" name="importButton">
    <property name="geometry">
     <rect>
-     <x>403</x>
+     <x>483</x>
      <y>20</y>
      <width>100</width>
      <height>32</height>
@@ -61,7 +61,7 @@
   <widget class="QPushButton" name="recognizeButton">
    <property name="geometry">
     <rect>
-     <x>510</x>
+     <x>590</x>
      <y>20</y>
      <width>100</width>
      <height>32</height>
@@ -74,7 +74,7 @@
   <widget class="QPushButton" name="uploadButton">
    <property name="geometry">
     <rect>
-     <x>616</x>
+     <x>696</x>
      <y>20</y>
      <width>100</width>
      <height>32</height>
