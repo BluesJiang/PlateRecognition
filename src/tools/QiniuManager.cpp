@@ -13,6 +13,10 @@ public:
     explicit QiniuManagerWorker(std::vector<PlateModel> models, QObject *parent = 0)
     : QThread(parent), models(models)
     {
+
+    }
+
+    void run() Q_DECL_OVERRIDE {
         Qiniu_Client client;
         Qiniu_Mac mac;
         const  char* bucketName = "cpptest";
@@ -57,7 +61,6 @@ public:
         Qiniu_Free(uploadtoken);
         emit resultReady(retVec);
     }
-
 private:
     char* upLoadToken(const char* bucket, Qiniu_Mac* mac)
     {
