@@ -123,3 +123,4 @@ void SearchTab::replyFinished(QNetworkReply * reply) {
 
     ui->listWidget->insertItem(count++, item);
 }
+

@@ -41,6 +41,7 @@ private slots:
     void upload();
     void handleResult(std::vector<easypr::CPlate> retVec);
     void uploadFinished();
+    void dataChangeSearch(QModelIndex, QModelIndex);
 
 signals:
     void startRecognize();

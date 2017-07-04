@@ -29,6 +29,7 @@ RecognizeTab::RecognizeTab(QWidget *parent) {
     connect(ui->tableView, SIGNAL(clicked(QModelIndex)), this,SLOT(itemClicked(QModelIndex)));
     connect(&recognisor, SIGNAL(resultReady(std::vector<easypr::CPlate>)), this, SLOT(handleResult(std::vector<easypr::CPlate>)));
     connect(&dataManager, SIGNAL(uploadFinished()), this, SLOT(uploadFinished()));
+    connect(standardItemModel, SIGNAL(dataChanged(QModelIndex , QModelIndex )), this, SLOT(dataChangeSearch(QModelIndex , QModelIndex)));
 }
 
 RecognizeTab::~RecognizeTab() {
@@ -184,4 +185,20 @@ void RecognizeTab::uploadFinished() {
     ui->uploadButton->setEnabled(true);
     std::cout<< "上传完毕" << std::endl;
     emit endUpload();
+}
+
+
+void RecognizeTab::dataChangeSearch(QModelIndex topLeft, QModelIndex bottomRight) {
+    int row = topLeft.row();
+    int column = 2;
+    PlateModel model;
+    dataManager.queryPlateInfoWithPlate(topLeft.data().toString().toStdString(), model);
+
+    if(model.owner.compare("") != 0)
+    {
+        standardItemModel->setData(standardItemModel->index(row,column), QString::fromStdString(model.owner));
+    }
+
+    ui->tableView->setModel(standardItemModel);
+
 }
