@@ -27,12 +27,12 @@ int main(int argc, char* argv[]) {
     LoginDialog * login = new LoginDialog();
     MainWindow* mainWindow = new MainWindow();
 //    SearchWindow * searchWindow = new SearchWindow();
-    mainWindow->show();
+//    mainWindow->show();
 
-//    if(login->exec() == QDialog::Accepted)
-//    {
-//        mainWindow->show();
-//    }
+    if(login->exec() == QDialog::Accepted)
+    {
+        mainWindow->show();
+    }
 
     qRegisterMetaType<std::vector<easypr::CPlate>>("std::vector<easypr::CPlate>");
     qRegisterMetaType<std::vector<PlateModel>>("std::vector<PlateModel>");

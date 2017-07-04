@@ -15,7 +15,8 @@ LoginDialog::LoginDialog(QWidget *parent) {
     ui->label_2->setAlignment(Qt::AlignVCenter);
     ui->label_3->setAlignment(Qt::AlignVCenter);
     ui->lineEdit_2->setEchoMode(QLineEdit::Password);
-    QImage * image = new QImage("/Users/yangchen/Desktop/PlateRecognition/resources/image/logo.png");
+    this->setWindowTitle("Login");
+    QImage * image = new QImage("./resources/image/logo.png");
     connect(ui->lineEdit, SIGNAL(returnPressed()), ui->loginButton, SIGNAL(clicked()), Qt::UniqueConnection);
     connect(ui->lineEdit_2, SIGNAL(returnPressed()), ui->loginButton, SIGNAL(clicked()), Qt::UniqueConnection);
     ui->label->setPixmap(QPixmap::fromImage(*image));
